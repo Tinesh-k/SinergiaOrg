@@ -16,7 +16,8 @@ class ConstructorExample extends React.Component {
       width: 500 ,
       data:[],height:500,
       selectedOption: null,options:[],optionsCity:[],selectedOptionCity:null,
-      isLoading:false
+      isLoading:false,
+      errormessage:false
 		}
 	}
   
@@ -29,7 +30,7 @@ class ConstructorExample extends React.Component {
         value:i.code,
         label:i.name
       }))
-      this.setState({options:test})
+      this.setState({options:test,errormessage:false})
     })
     axios.get(`https://api.openaq.org/v1/cities?country=${selectedOption.value}`).then(res=>{
       console.log("pok",res);
@@ -48,14 +49,14 @@ class ConstructorExample extends React.Component {
    this.setState({isLoading:true})
     axios.get('https://api.openaq.org/v1/locations',{
       params: {
-        city: [selectedOptionCity.value]
+        city:[selectedOptionCity.value]
       },
       paramsSerializer: params => {
         return qs.stringify(params)
       }
     }).then(res => 
     {
-      this.setState({isLoading:false})
+      this.setState({isLoading:false,errormessage:false})
       console.log("result",res.data.results)
       const rt=res.data.results.map(i=>({ 
         count:i.count,
@@ -72,7 +73,7 @@ class ConstructorExample extends React.Component {
     console.log("hhs",yyo)
      this.setState({data: yyo});
        }).catch(()=>{
-        this.setState({isLoading:false})
+        this.setState({isLoading:false,errormessage:true})
        }); 
     
   };
@@ -86,7 +87,7 @@ class ConstructorExample extends React.Component {
      axios.get('https://api.openaq.org/v1/locations').then(res => 
 {
   console.log("result",res.data.results)
-  this.setState({isLoading:false})
+  this.setState({isLoading:false,errormessage:false})
   const rt=res.data.results.map(i=>({ 
     count:i.count,
     parameters:i.parameters
@@ -102,7 +103,7 @@ const yyo=yy.flat();
 console.log("hhs",yyo)
  this.setState({data: yyo});
    }).catch(()=>{
-    this.setState({isLoading:false})
+    this.setState({isLoading:false,errormessage:true})
    }); 
 
 
@@ -119,7 +120,7 @@ axios.get("https://api.openaq.org/v1/countries").then(res=>{
 	}
  
 	render() {
-    const { selectedOption,options,optionsCity,selectedOptionCity } = this.state;
+    const { selectedOption,options,optionsCity,selectedOptionCity,errormessage } = this.state;
 		return (
       <div ref='root'>
         
@@ -150,12 +151,18 @@ axios.get("https://api.openaq.org/v1/countries").then(res=>{
             </div>
      </div>
        
-    { this.state.isLoading===true?<h4 className="info-reader">Please wait......</h4>: <div style={{width: '100%'}}> 
+    { this.state.isLoading===true?<h4 className="info-reader">Please wait......</h4>:
+    
+    errormessage===true?<h4 className="info-reader">Unable to fetch data.</h4>:
+    
+    <div style={{width: '100%'}}> 
           <BarChart ylabel='Quantity'
             width={this.state.width}
             height={this.state.height}
             margin={margin}
             data={this.state.data}
+            xlabel="Pollution Items"
+        //    svg={{ fill: 'green' }}
            
             />
       </div>}
