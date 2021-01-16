@@ -9,7 +9,7 @@ import qs from "qs";
 // ];
  
 const margin = {top: 20, right: 20, bottom: 30, left: 100};
-class ConstructorExample extends React.Component {
+class PollutionView extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -172,4 +172,4 @@ axios.get("https://api.openaq.org/v1/countries").then(res=>{
 }
 
 
-export default ConstructorExample;
+export default PollutionView;
