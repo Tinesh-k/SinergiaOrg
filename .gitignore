@@ -19,3 +19,4 @@ bin-release/
 node_modules/@babel/compat-data/LICENSE
 node_modules
 package-lock.json
+node_modules/.bin/babylon
