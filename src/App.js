@@ -58,20 +58,20 @@ class ConstructorExample extends React.Component {
     {
       this.setState({isLoading:false,errormessage:false})
       console.log("result",res.data.results)
-      const rt=res.data.results.map(i=>({ 
+      const resultantArray=res.data.results.map(i=>({ 
         count:i.count,
         parameters:i.parameters
       }))
-      console.log("rt",rt)
-      const yy=rt.map(i=>i.parameters.map(ite=>({
+      console.log("resultantArray",resultantArray)
+      const formattedArray=resultantArray.map(i=>i.parameters.map(ite=>({
         value:i.count,
         text:ite
       })))
-      console.log("yy",yy)
+      console.log("formattedArray",formattedArray)
     
-    const yyo=yy.flat();
-    console.log("hhs",yyo)
-     this.setState({data: yyo});
+    const flatternArray=formattedArray.flat();
+    console.log("hhs",flatternArray)
+     this.setState({data: flatternArray});
        }).catch(()=>{
         this.setState({isLoading:false,errormessage:true})
        }); 
@@ -88,20 +88,20 @@ class ConstructorExample extends React.Component {
 {
   console.log("result",res.data.results)
   this.setState({isLoading:false,errormessage:false})
-  const rt=res.data.results.map(i=>({ 
+  const resultantArray=res.data.results.map(i=>({ 
     count:i.count,
     parameters:i.parameters
   }))
-  console.log("rt",rt)
-  const yy=rt.map(i=>i.parameters.map(ite=>({
+  console.log("resultantArray",resultantArray)
+  const formattedArray=resultantArray.map(i=>i.parameters.map(ite=>({
     value:i.count,
     text:ite
   })))
-  console.log("yy",yy)
+  console.log("formattedArray",formattedArray)
 
-const yyo=yy.flat();
-console.log("hhs",yyo)
- this.setState({data: yyo});
+const flatternArray=formattedArray.flat();
+console.log("hhs",flatternArray)
+ this.setState({data: flatternArray});
    }).catch(()=>{
     this.setState({isLoading:false,errormessage:true})
    }); 
